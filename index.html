@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+	
+	<!--Date Picker-->
+	
+	<script src="lib/ionic/js/jquery-1.11.1.min.js"></script>
+		
+	
+	
+	
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.tpl.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+
+	<script type="text/javascript" src="js/commons/dbAdapter.js"> </script>
+	<script type="text/javascript" src="js/commons/utils.js"> </script>
+    <script type="text/javascript" src="js/service/UfService.js"> </script>
+    <script type="text/javascript" src="js/dao/TabelaDAO.js"> </script>
+    <script type="text/javascript" src="js/dao/ContatoDAO.js"> </script>
+    <script type="text/javascript" src="js/dao/TabelaPrecoDAO.js"> </script>
+    <script type="text/javascript" src="js/dao/LoginDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/UfDAO.js"> </script>
+    <script type="text/javascript" src="js/dao/PessoaDAO.js"> </script>        
+    <script type="text/javascript" src="js/dao/EnderecoDAO.js"> </script>
+    <script type="text/javascript" src="js/dao/GradeNumeracaoDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/GradeDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/PautaDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/DescontoComissaoDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/PrazoDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/ProdutoGradeDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/ProdutoDAO.js"> </script>
+    <script type="text/javascript" src="js/service/ContatoService.js"> </script>
+    <!-- <script type="text/javascript" src="js/service/ProdutoService.js"> </script> -->
+    <script type="text/javascript" src="js/service/TabelaService.js"> </script>
+    <script type="text/javascript" src="js/service/TabelaPrecoService.js"> </script>
+    <script type="text/javascript" src="js/service/EnderecoService.js"> </script>
+	<script type="text/javascript" src="js/dao/PedidoProdutoGradeDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/PedidoProdutoDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/PedidoDAO.js"> </script>
+    <script type="text/javascript" src="js/dao/PessoaDAO.js"> </script>
+	<script type="text/javascript" src="js/dao/FechamentoDAO.js"> </script>
+    <script type="text/javascript" src="js/service/PessoaService.js"> </script>
+    <script type="text/javascript" src="js/commons/sincronismo.js"> </script>
+  </head>
+   <script type="text/javascript" charset="utf-8">
+	    function onLoad() {
+			// Wait for PhoneGap to load
+	        document.addEventListener("deviceready", onDeviceReady, false);
+	    }
+
+        function onDeviceReady() {
+			//listen to network online/offline events
+			document.addEventListener("online", function(){
+				//alert('Está online!');
+			}, false);
+			
+			create();
+    		//atualizaDados();
+
+        }
+    </script>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------>	
+  
+  <body ng-app="starter"  onload="onLoad();" animation="slide-left-right-ios7" class="platform-android platform-cordova platform-webview">
+    <!-- 
+      The nav bar that will be updated as we navigate between views.
+    -->
+    <ion-nav-bar align-title="left" class="bar-positive nav-title-slide-ios7 bar-principal">
+      <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back">
+		Voltar
+      </ion-nav-back-button>
+	  <ion-nav-buttons side="primary">
+        <button class="btn-configs button-gear button button-gear right icon" onClick="configs()"><div class="icon ion-gear-a"></div></button>
+        <button class="btn-cancelar-pedido button button-assertive right hide" onClick="window.location='#/tab/pedidos'; cancelarNovoPedido();">Cancelar Pedido</button>
+	  </ion-nav-buttons>
+    </ion-nav-bar>
+    <!-- 
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
+	
+	<!--Máscara para janela modal-->
+	<div class="mascara"></div>
+	
+	
+	
+	
+	
+	
+	<!--Lista de Configurações-->
+	<div class="list configs hide">
+
+	  <a href="#" class="item item-configs item-icon-left" onClick="j('.configs').hide()">
+		<i class="icon ion-home"></i>
+		Inicial
+	  </a>
+	  
+	  <a href="#" class="item item-configs item-icon-left" onClick="btnCadastrarCliente()">
+		<i class="icon ion-android-add-contact"></i>
+		Cadastrar Cliente
+	  </a>	
+		
+	  <a href="#" class="item item-configs item-icon-left" onClick="info()">
+		<i class="icon ion-help"></i>
+		Info
+	  </a>
+
+	  <a href="#/login" class="item  item-icon-left" onClick="j('.configs').hide();sair()">
+		<i class="icon ion-log-out"></i>
+		Sair
+	  </a>
+
+	</div>
+	
+	
+	
+	<!--Informações do sistema-->
+	<div class="list card margin-top info">
+	  <div class="item item-avatar">
+		<img src="img/logo.png" class="float-left">
+		<div class="float-left">
+			<h2>Pedido Web Mobile</h2>
+			<p>versão 1.0</p>
+		</div>
+		<div class="btn-close float-right ion-android-close" onclick="j('.info').hide();j('.mascara').hide();">			
+		</div>
+		
+	  </div>
+
+	  <div class="item item-body">
+		
+		<p>
+		  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..
+		</p>
+		<p>
+		  <a href="#" class="subdued">1 Like</a>
+		  <a href="#" class="subdued">5 Comments</a>
+		</p>
+	  </div>
+
+	  <div class="item tabs tabs-secondary tabs-icon-left">
+		<a class="tab-item" href="#">
+		  <i class="icon ion-thumbsup"></i>
+		  Curtir
+		</a>
+		<a class="tab-item" href="#">
+		  <i class="icon ion-chatbox"></i>
+		  Comentário
+		</a>
+		<a class="tab-item" href="#">
+		  <i class="icon ion-share"></i>
+		  Compartilhar
+		</a>
+	  </div>
+
+	</div>
+	
+	
+
+	
+	<!-- Cadastro de cliente -->
+	<div id="cadastroCliente" class="modal full" style="display:none;">
+		<!-- Modal header bar -->
+		<ion-header-bar class="bar-secondary">		
+		  <h1 class="title">Novo Cliente</h1>
+		<button class="button button-assertive" onClick="j('.modal').hide('drop');">Cancelar</button>
+		</ion-header-bar>
+
+		<!-- Form -->
+		<ion-content>
+
+		  <form id="form-novo-cliente" ng-submit="cadastrarCliente(nome,cpf)">
+			<div class="list">
+			  <label class="item item-input">
+				<span>Nome: &nbsp;</span>
+				<input type="text" ng-model="nome">
+			  </label>
+			  <label class="item item-input">
+				<span>CPF: &nbsp;</span>
+				<input type="text" ng-model="cpf">
+			  </label>
+			  <label class="item item-input">
+				<span>Telefone.: &nbsp;</span>
+				<input type="text" ng-model="telefone">
+			  </label>
+			  <label class="item item-input">
+				<span>Endereço: &nbsp;</span>
+				<input type="text" ng-model="endereco">
+			  </label>
+			</div>
+			<div class="padding">
+			  <button type="submit" class="button button-block button-balanced" onClick="alert('Funcionalidade em desenvolvimento...');j('.modal').hide('drop');cadastrarCliente(nome,cpf)">Gravar</button>
+			</div>
+		  </form>
+
+
+		</ion-content>	
+	</div>
+	
+  </body>
+</html>

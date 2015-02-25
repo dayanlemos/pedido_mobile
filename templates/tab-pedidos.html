@@ -1,0 +1,33 @@
+<ion-view title="Pedidos">
+  <ion-content class="has-header pedidosContent padding dark">
+	<div ng-show="showPedidos" id="clientes">
+		<label class="item item-input">
+		  <i class="icon ion-search placeholder-icon"></i>
+		  <input type="search" ng-model="search" placeholder="Pesquisar">
+		</label>
+		<h1>Pedidos
+			<!--Botão Novo Pedido-->
+			<button class="button button-positive botao-direita" ng-click="ngNovoPedido()" onClick="novoPedido();window.location = '#/pedido-cliente';">
+			  Novo Pedido
+			</button>
+		</h1>
+
+        &nbsp;
+
+		<a id="recarrega-pedidos" class="hidden" ng-click="recarregaPedidos();logJsonPedidos();">recarrega lista</a>
+
+        <button id="busca-vendedor" class="hidden" ng-click="buscaVendedor();">verifica permitePauta</button>
+
+		<div class="list dark" id="lista-pedidos">
+			<!--<h2>Nenhum pedido encontrado.</h2>-->
+			<ion-item ng-repeat="pedido in pedidos | filter:search" type="item-text-wrap" href="#/tab/pedido/{{pedidos.indexOf(pedido)}}">
+				<h2>Pedido {{pedido.codigoMobile}}</h2>
+				<p>{{pedido.dataPedido}}</p>
+                <p>{{pedido.objCliente.nomeRazao}}</p>
+				<p ng-repeat="cliente in clientes track by $index" ng-show="cliente.id == pedido.cliente">Cliente: {{cliente.nomeRazao}}</p>
+			</ion-item>
+		</div>
+	</div>
+ 
+  </ion-content>
+</ion-view>
