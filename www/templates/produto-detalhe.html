@@ -1,0 +1,17 @@
+<ion-view title="{{produto.descricao}}">
+  <ion-content has-header="true" padding="true">
+	<div class="dark" id='produto-detalhes'>
+		<h2>{{produto.descricao}}</h2>
+		<p ng-show="!produto.ordem == ''">Ordem: {{produto.ordem}}</p>
+		<p ng-show="!produto.valor == ''">Preço: {{produto.valor}}</p>
+		<p ng-show="!produto.valorMinimo == ''">Preço Mínimo: {{produto.valorMinimo}}</p>
+		<p ng-show="!produto.tabelaPreco == ''">Tabela de Preços: {{produto.tabelaPreco}}</p>
+		<p ng-show="!produto.cor == ''">Cor: {{produto.cor}}</p>
+		<p ng-show="!produto.unidade == ''">Unidade: {{produto.unidade}}</p>
+		<p ng-show="!produto.fabricante == ''">Fabricante: {{produto.fabricante}}</p>
+		<p ng-show="!produto.composicao == ''">Composição: {{produto.composicao}}</p>	
+		<p ng-show="!produto.qtdeEmbalagem == ''">Quantidade por embalagem: {{produto.qtdeEmbalagem}}</p>  
+	</div>
+
+  </ion-content>
+</ion-view>

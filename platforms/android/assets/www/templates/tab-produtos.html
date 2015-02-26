@@ -1,0 +1,28 @@
+<ion-view title="Produtos">
+    <ion-content class="has-header padding dark">
+        <div class="item-input item-search">
+            <label class="item-input-wrapper">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" ng-model="searchProduto.search" placeholder="Pesquisar">
+            </label>
+            <button class="button button-stable button-search float-right btn-pesquisar" ng-click="carregaProdutos()" >Buscar</button>
+        </div>
+        <h1>Produtos</h1>
+
+
+
+        <ion-list class="list" id="lista-produtos">
+            <ion-item ng-repeat="produto in produtos | filter:search" type="item-text-wrap" href="#/tab/produto/{{produto.id}}">
+                <h2>{{produto.descricao}}</h2>
+                <p>Ordem: {{produto.ordem}}</p>
+            </ion-item>
+        </ion-list>
+
+        <div ng-show="produtos.length==0" style="width: 100px; margin: auto">
+            <img src="img/loader.gif" style="width: 100px" />
+        </div>
+
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+
+    </ion-content>
+</ion-view>

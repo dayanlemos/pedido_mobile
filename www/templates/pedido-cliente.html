@@ -1,0 +1,60 @@
+<ion-view title="Selecionar Cliente">
+    <ion-content has-header="true" padding="true">
+        <a id="remover-clientes" class="hidden" ng-click="removerClientes();" href="#">remover clientes</a>
+        <a id="alert-selecionar-cliente" class="hidden" ng-click="alertSelecionarCliente();" href="#">selecionar cliente</a>
+        <div class="item-input item-search">
+            <label class="item-input-wrapper" id="input-pesquisar">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" ng-model="searchCliente.search" placeholder="Pesquisar">
+            </label>
+            <button class="button button-stable button-search float-right btn-pesquisar" ng-click="carregaClientes()">Buscar</button>
+        </div>
+        <br />
+        <br />
+        <button id="limpar-search-cliente" class="hidden" ng-click="limparSearchCliente();">limpar</button>
+        <!--<button ng-click="carregaClientes()">Carrega clientes</button>-->
+        <h1>Cliente</h1>
+        <ion-list class="list">
+            <li class="item cliente" ng-repeat="cliente in clientes | filter:search" ng-class="{marked: cliente.checked}" ng-click="pedidoCliente(cliente.id, cliente.nomeRazao);markIt(cliente);escondeLista();scrollTop();" ng-switch on ="cliente.checked">
+                <div class="float-left">
+                    <h2>{{cliente.nomeRazao}}</h2>
+                    <p>{{cliente.id}}</p>
+                </div>
+                &nbsp;&nbsp;
+                <span class="cliente-checked ion-android-checkmark" ng-switch-when="true"></span>
+            </li>
+        </ion-list>
+
+        <div ng-show="clientes.length==0" style="width: 100px; margin: auto">
+            <img src="img/loader.gif" style="width: 100px" />
+        </div>
+
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+        <div class="bottom-space"></div>
+
+    </ion-content>
+    <div class="tabs tabs-positive tabs-icon-left">
+       <button width="50%" class="btn-proximo button button-stable tab-item positive pedido-produto" onClick="clienteProximo()">
+            Próximo
+            <i class="icon ion-ios7-arrow-forward"></i>
+       </button>
+
+
+
+
+    <script type="text/javascript">
+        function clienteProximo(){
+            if(!j('li.cliente').hasClass('marked')){
+                j('#alert-selecionar-cliente').click();
+                return;
+            }else{
+                window.location = "#/pedido-produto";
+                //j('.btn-voltar').show();
+            }
+        }
+
+
+
+    </script>
+  </div>
+</ion-view>

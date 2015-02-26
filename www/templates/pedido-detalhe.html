@@ -1,0 +1,48 @@
+<ion-view title="Pedido {{pedido.codigoMobile}}">
+  <ion-content has-header="true" padding="true">
+	<div class="dark">
+		<!--Objetos-->
+		<!--<p>Pedido: {{pedido}}</p>-->
+		<!--<p>Produtos pedido: {{pedidoProdutos}}</p>-->
+		<!--<p>Grades Produtos pedido: {{pedidoProdutosGrade}}</p>-->
+		<!--<p>Fechamento: {{fechamento}}</p>-->
+		<!--<p>Cliente: {{pedidoCliente}}</p>-->
+
+		<h2>Pedido {{pedido.codigoMobile}}</h2>
+		<p>Data: {{pedido.dataPedido}}</p>
+		<p>Cliente: {{pedido.objCliente.nomeRazao}}</p>
+		<p>Prazo: {{fechamento.prazoNome}} dias</p>
+		<p>Cobrança: {{fechamento.tipoCobrancaNome}}</p>
+		<p>Entrega: {{fechamento.entrega}}</p>
+		<p>Desconto / Comissão: {{fechamento.descontoComissaoNome}}</p>
+		<p>Desconto Geral: {{fechamento.desconto}}%</p>
+        <p>Pauta: {{fechamento.pautaNome}}</p>
+		<p>Observações: {{fechamento.observacoes}}</p>		
+		<hr />
+		<h3>Produtos do Pedido:</h3>
+	</div>
+	<div class="item" ng-repeat="pedidoProduto in pedidoProdutos">
+		<p>ID do Produto: {{pedidoProduto.id}}</p>
+		<p ng-repeat="produto in produtos track by $index" ng-show="produto.id == pedidoProduto.id">{{produto.descricao}}</p>
+		<p>Valor Unitário: {{pedidoProduto.valorUnitario}}</p>
+		<br />
+		<div class="row">
+			<div class="col">Numeração</div>
+			<div class="col">Quantidade</div>
+		</div>
+
+
+		<div class="row" ng-repeat="grade in pedidoProdutosGrade[0]" ng-show="grade.pedido == pedido.codigoMobile && grade.pedidoProduto == pedidoProduto.id && grade.quantidade != 0 && grade.quantidade != '' && grade.quantidade != null">
+            <div class="col"><div ng-repeat="grd in grades" ng-show="grade.gradeNumeracao == grd.id">{{grd.numeracao}}</div></div>
+			<div class="col">{{grade.quantidade}}</div>
+		</div>
+		
+		<div class="row bold">
+			<div class="col">Total</div>
+			<div class="col">{{pedidoProduto.quantidade}}</div>
+		</div>
+		
+	
+	</div>
+
+  </ion-content>
